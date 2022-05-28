@@ -3,6 +3,7 @@
 // Note: the relevant data files are assumed to be in a folder named "cjk-glyphs-diff-master"
 // located on the Desktop folder, which can be downloaded (and subsequently unzipped) from:
 // https://github.com/tonton-pixel/cjk-glyphs-diff/archive/refs/heads/master.zip
+// Warning: it may take about one hour to complete, during which the hosting application will be unresponsive...
 //
 let start = new Date ();
 //
@@ -29,11 +30,6 @@ let canvas2 = document.createElement ('canvas');
 canvas2.width = offScreenWidth;
 canvas2.height = offScreenHeight;
 let ctx2 = canvas2.getContext ('2d', { alpha: false, desynchronized: true });
-//
-let canvas = document.createElement ('canvas');
-canvas.width = offScreenWidth;
-canvas.height = offScreenHeight;
-let ctx = canvas.getContext ('2d', { alpha: false, desynchronized: true });
 //
 function visuallyEquivalent (svg1, svg2)
 {

@@ -2,6 +2,13 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.5.0
+
+- Updated CJK sample scripts in the **JavaScript Runner** utility.
+- Updated `IDS.TXT` and `IDS_PUA.TXT` data files.
+- Updated `BabelStoneHanPUA.woff2` font file.
+- Updated `Electron` to version `17.4.6`.
+
 ## 2.4.0
 
 - Added new sample script: `Create CJK Glyphs Diff HTML Files` to the **JavaScript Runner** utility.

@@ -1537,14 +1537,14 @@
         "冒":
         [
             {
-                "ivs": "冒󠄀",
-                "collection": "BabelStone",
-                "identifier": "BS_5192_VS17"
-            },
-            {
                 "ivs": "冒󠄂",
                 "collection": "BabelStone",
                 "identifier": "BS_5192_VS19"
+            },
+            {
+                "ivs": "冒󠄃",
+                "collection": "BabelStone",
+                "identifier": "BS_5192_VS20"
             }
         ],
         "写":
@@ -6787,6 +6787,19 @@
                 "identifier": "BS_210E9_VS18"
             }
         ],
+        "𡆮":
+        [
+            {
+                "ivs": "𡆮󠄀",
+                "collection": "BabelStone",
+                "identifier": "BS_211AE_VS17"
+            },
+            {
+                "ivs": "𡆮󠄁",
+                "collection": "BabelStone",
+                "identifier": "BS_211AE_VS18"
+            }
+        ],
         "𡉉":
         [
             {
@@ -9012,6 +9025,19 @@
                 "identifier": "BS_277EA_VS18"
             }
         ],
+        "𧢛":
+        [
+            {
+                "ivs": "𧢛󠄀",
+                "collection": "BabelStone",
+                "identifier": "BS_2789B_VS17"
+            },
+            {
+                "ivs": "𧢛󠄁",
+                "collection": "BabelStone",
+                "identifier": "BS_2789B_VS18"
+            }
+        ],
         "𧦅":
         [
             {
@@ -10426,6 +10452,19 @@
                 "identifier": "BS_2BB00_VS18"
             }
         ],
+        "𫜶":
+        [
+            {
+                "ivs": "𫜶󠄀",
+                "collection": "BabelStone",
+                "identifier": "BS_2B736_VS17"
+            },
+            {
+                "ivs": "𫜶󠄁",
+                "collection": "BabelStone",
+                "identifier": "BS_2B736_VS18"
+            }
+        ],
         "𫭱":
         [
             {
@@ -11167,6 +11206,24 @@
                 "identifier": "BS_2E3D9_VS18"
             }
         ],
+        "𮕩":
+        [
+            {
+                "ivs": "𮕩󠄀",
+                "collection": "BabelStone",
+                "identifier": "BS_2E569_VS17"
+            },
+            {
+                "ivs": "𮕩󠄁",
+                "collection": "BabelStone",
+                "identifier": "BS_2E569_VS18"
+            },
+            {
+                "ivs": "𮕩󠄂",
+                "collection": "BabelStone",
+                "identifier": "BS_2E569_VS19"
+            }
+        ],
         "𮖢":
         [
             {
@@ -11191,6 +11248,19 @@
                 "ivs": "𮚐󠄁",
                 "collection": "BabelStone",
                 "identifier": "BS_2E690_VS18"
+            }
+        ],
+        "𮚰":
+        [
+            {
+                "ivs": "𮚰󠄀",
+                "collection": "BabelStone",
+                "identifier": "BS_2E6B0_VS17"
+            },
+            {
+                "ivs": "𮚰󠄁",
+                "collection": "BabelStone",
+                "identifier": "BS_2E6B0_VS18"
             }
         ],
         "𮜓":

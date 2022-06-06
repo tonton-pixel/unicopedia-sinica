@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.6.0
+
+- Updated the **unregistered** `BabelStone Collection` in the **CJK Variations** utility.
+- Updated `IDS.TXT` data file.
+- Updated `Electron` to version `17.4.7`.
+
 ## 2.5.0
 
 - Updated CJK sample scripts in the **JavaScript Runner** utility.

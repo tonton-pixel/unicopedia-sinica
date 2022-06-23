@@ -16,7 +16,7 @@ for (let line of lines)
     {
         if (line[0] === "#")
         {            
-            let found = line.match (/^#\t(\{\d+\})\t(.*)\(([0-9A-Fa-f]{4}) (.)\)$/u);
+            let found = line.match (/^#\t(\{\d+\})\t(.*)\(([0-9A-Fa-f]{4}) (.)\)/u);
             if (found)
             {
                 let number = found[1];
@@ -53,16 +53,30 @@ for (let line of lines)
                     let found = string.match (/^\^(.*)\$(?:\((.*)\))?$/u);
                     if (found)
                     {
-                        let ids = found[1].replaceAll (/\{\d+\}/gu, number => unencoded[number] ? unencoded[number].character : "！");
+                        function numberedComponent (number)
+                        {
+                            let component;
+                            if (unencoded[number])
+                            {
+                                component = unencoded[number].character;
+                            }
+                            else
+                            {
+                                component = "！";
+                                console.log (`Invalid numbered component: ${number} for ${codePoint} ${character}`);
+                            }
+                            return component;
+                        }
+                        let ids = found[1].replace (/\{\d+\}/gu, numberedComponent);
                         let source = found[2];
                         if (!source)
                         {
-                            console.log (`Missing source: ${codePoint}\t${character}`);
+                            console.log (`Missing source: ${codePoint} ${character}`);
                         }
                         sequences.push ({ ids, source });
                         if (compare (Array.from (ids)) !== 0)
                         {
-                            console.log (`Non well-formed IDS: ${codePoint}\t${character}\t${ids}`);
+                            console.log (`Non well-formed IDS: ${codePoint} ${character} ${ids}`);
                         }
                     }
                     else

@@ -478,6 +478,15 @@ else
         mainWindow.webContents.on ('new-window', (event) => { event.preventDefault (); }); // Prevent openening of a new window by window.open ()
         mainWindow.webContents.on ('will-navigate', (event) => { event.preventDefault (); }); // Inhibit drag-and-drop of URL on window
         //
+        process.on
+        (
+            'SIGINT',
+            () =>
+            {
+                app.quit ();
+            }
+        );
+        //
         let inConfirmQuitDialog = false;
         //
         mainWindow.on

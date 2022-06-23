@@ -439,7 +439,8 @@ const versionDates =
     "12.0": "March 2019",
     "12.1": "May 2019",
     "13.0": "March 2020",
-    "14.0": "September 2021"
+    "14.0": "September 2021",
+    "15.0": "September 2022"
 };
 //
 function uniHexify (string)

@@ -2,6 +2,13 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/).
 
+## 2.7.0
+
+- Added a `Notes` field with clickable character links below the ideographic description sequences of the **Look Up IDS** feature of the **CJK Components** utility.
+- Updated `BabelStoneHanPUA.woff2` font file.
+- Updated `IDS.TXT` data file.
+- Updated `Electron` to version `17.4.8`.
+
 ## 2.6.0
 
 - Updated the **unregistered** `BabelStone Collection` in the **CJK Variations** utility.

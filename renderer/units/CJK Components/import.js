@@ -837,6 +837,105 @@ module.exports.start = function (context)
         return table;
     }
     //
+    function getTooltip (character)
+    {
+        let data = unicode.getCharacterBasicData (character);
+        return `${data.codePoint.replace (/U\+/, "U\u034F\+")}\xA0${character}` + (regexp.isRadical (character) ? " (Radical)" : ""); // U+034F COMBINING GRAPHEME JOINER
+    }
+    function onLinkClick (event)
+    {
+        updateLookUpUnihanData (event.currentTarget.dataset.char);
+    }
+    //
+    const codePointOrCharacterPattern = '\\b(U\\+[0-9a-fA-F]{4,5})\\b|(.)';
+    const codePointOrCharacterRegex = new RegExp (codePointOrCharacterPattern, 'gu');
+    //
+    function appendTextWithLinks (node, text)
+    {
+        let matches = text.matchAll (codePointOrCharacterRegex);
+        let clickables = [ ];
+        for (let match of matches)
+        {
+            let matched = match[0];
+            let index = match.index;
+            let lastIndex = index + matched.length;
+            let codePoint;
+            let char;
+            if (match[1])
+            {
+                codePoint = matched.toUpperCase ();
+                char = String.fromCodePoint (parseInt (codePoint.replace ("U+", ""), 16));
+                if (regexp.isUnihan (char) || regexp.isRadical (char))
+                {
+                    clickables.push ({ type: 'code-point', matched, index, lastIndex, codePoint, char });
+                }
+            }
+            else if (match[2])
+            {
+                char = matched;
+                if (regexp.isUnihan (char) || regexp.isRadical (char))
+                {
+                    codePoint = unicode.characterToCodePoint (char);
+                    clickables.push ({ type: 'char', matched, index, lastIndex, codePoint, char });
+                }
+            }
+        }
+        for (let index = clickables.length - 2; index >= 0; index--)
+        {
+            let current = clickables[index];
+            let next = clickables[index + 1];
+            if ((current.char === next.char) && (current.type !== next.type) && (text.slice (current.lastIndex, next.index) === " "))
+            {
+                // Merge into current
+                current.type = 'combo';
+                current.matched = `${current.matched} ${next.matched}`;
+                current.index = current.index;
+                current.lastIndex = next.lastIndex;
+                // Remove next
+                clickables.splice (index + 1, 1);
+            }
+        }
+        let lastIndex = 0;
+        for (clickable of clickables)
+        {
+            node.appendChild (document.createTextNode (text.slice (lastIndex, clickable.index)));
+            lastIndex = clickable.lastIndex;
+            link = document.createElement ('span');
+            link.className = 'unihan-character-link';
+            if (clickable.char != currentLookUpUnihanCharacter)
+            {
+                link.classList.add ('clickable');
+                link.dataset.char = clickable.char;
+                link.addEventListener ('click', onLinkClick);
+            }
+            link.textContent = clickable.matched;
+            link.title = getTooltip (clickable.char);
+            node.appendChild (link);
+        }
+        node.appendChild (document.createTextNode (text.slice (lastIndex, text.length)));
+    }
+    //
+    function createIDSNotes (notes)
+    {
+        let table = document.createElement ('table');
+        table.className = 'notes';
+        let notesRow = document.createElement ('tr');
+        notesRow.className = 'notes-row';
+        let notesLabel = document.createElement ('td');
+        notesLabel.className = 'notes-label';
+        notesLabel.textContent = "Notes:";
+        notesRow.appendChild (notesLabel);
+        // let notesGap = document.createElement ('td');
+        // notesGap.className = 'notes-gap';
+        // notesRow.appendChild (notesGap);
+        let notesData = document.createElement ('td');
+        notesData.className = 'notes-data';
+        appendTextWithLinks (notesData, notes);
+        notesRow.appendChild (notesData);
+        table.appendChild (notesRow);
+        return table;
+    }
+    //
     lookUpUnihanHistory = prefs.lookupUnihanHistory;
     //
     function displayLookUpData (unihanCharacter)
@@ -867,6 +966,10 @@ module.exports.start = function (context)
                 for (let sequence of data.sequences)
                 {
                     lookUpIdsContainer.appendChild (createIDSTable (unihanCharacter, sequence.ids, sequence.source, lookUpShowGraphsCheckbox.checked, data.sequences.length > 1));
+                }
+                if (data.notes)
+                {
+                    lookUpIdsContainer.appendChild (createIDSNotes (data.notes.trim ()));
                 }
             }
         }

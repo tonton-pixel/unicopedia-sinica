@@ -478,40 +478,45 @@ for (let unitImport of unitImports)
     }
 }
 //
+function savePrefs ()
+{
+    let prefs =
+    {
+        zoomLevel: webFrame.getZoomLevel (),
+        currentUnitName: currentUnitName,
+        showSidebar: showSidebar,
+        showCategories: showCategories
+    };
+    rendererStorage.set (prefs);
+    for (let unitImport of unitImports)
+    {
+        if (unitImport.filename)
+        {
+            let unitModule = require (unitImport.filename);
+            if (unitImport.storage)
+            {
+                let context =
+                {
+                    name: unitImport.name,
+                    baseURL: unitImport.URL,
+                    getPrefs: unitImport.storage.get,
+                    setPrefs: unitImport.storage.set
+                };
+                if (typeof unitModule.stop === 'function')
+                {
+                    unitModule.stop (context);
+                }
+            }
+        }
+    }
+}
+//
 window.addEventListener // *Not* document.addEventListener
 (
     'beforeunload',
     () =>
     {
-        let prefs =
-        {
-            zoomLevel: webFrame.getZoomLevel (),
-            currentUnitName: currentUnitName,
-            showSidebar: showSidebar,
-            showCategories: showCategories
-        };
-        rendererStorage.set (prefs);
-        for (let unitImport of unitImports)
-        {
-            if (unitImport.filename)
-            {
-                let unitModule = require (unitImport.filename);
-                if (unitImport.storage)
-                {
-                    let context =
-                    {
-                        name: unitImport.name,
-                        baseURL: unitImport.URL,
-                        getPrefs: unitImport.storage.get,
-                        setPrefs: unitImport.storage.set
-                    };
-                    if (typeof unitModule.stop === 'function')
-                    {
-                        unitModule.stop (context);
-                    }
-                }
-            }
-        }
+        savePrefs ();
     }
 );
 //
